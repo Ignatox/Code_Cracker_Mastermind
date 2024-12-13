@@ -39,13 +39,16 @@ def ia_dificil(intentos_previos, respuestas_previas, code_length=4):
             if intento.count(num) > 1 or (fijas == 0 and num in intento):
                 posibles_por_posicion[idx].discard(num)
                 descartados_globales.add(num)
+                print(f"Descartados globales: {descartados_globales}")
             elif fijas > 0:  # Fijas indican posibles valores para esta posición
                 posibles_por_posicion[idx].add(num)
+                print(f"posibles por posicion {posibles_por_posicion}")
             
         # Confirmar valores que son definitivamente "fijos" en ciertas posiciones
         for i in range(code_length):
             if len(posibles_por_posicion[i]) == 1:
                 fijas_confirmadas[i] = list(posibles_por_posicion[i])[0]
+                print(f"Fijas confirmadas {fijas_confirmadas}")
 
     # Generar nuevo intento basándose en posibilidades refinadas
     while True:
@@ -63,17 +66,24 @@ def ia_dificil(intentos_previos, respuestas_previas, code_length=4):
 
 
 # Turno del jugador
-def turno_jugador(codigo_ia):
-    while True:
+def turno_jugador():
+   while True:
         try:
-            intento = list(map(int, input("Introduce tu intento (4 dígitos únicos): ")))
-            if len(intento) == 4 and len(set(intento)) == 4:
-                break
+            entrada = input("\nIngresa tu intento (4 dígitos únicos o escribe 'EXIT' para salir): ").strip()
+            if entrada.upper() == "EXIT":
+                print("Saliendo del juego. ¡Gracias por jugar!")
+                exit()  # Finaliza el programa
+            
+            # Convierte la entrada a una lista de números
+            codigo = list(map(int, entrada))
+            
+            # Valida que sean 4 dígitos únicos
+            if len(codigo) == 4 and len(set(codigo)) == 4:
+                return codigo
             else:
-                print("Entrada inválida. Asegúrate de ingresar 4 dígitos únicos.")
+                print("Código inválido. Asegúrate de ingresar 4 dígitos únicos.")
         except ValueError:
-            print("Entrada inválida. Ingresa solo números.")
-    return intento
+            print("Entrada inválida. Ingresa solo números o escribe 'EXIT' para salir.")
 
 # Validación para el código del jugador
 # Validación para el código del jugador
@@ -121,7 +131,7 @@ def jugar():
     while True:
         if turno == 0:  # Turno del jugador
             print("\nTu turno:")
-            intento = turno_jugador(codigo_ia)
+            intento = turno_jugador()
             picas, fijas = calcular_picas_y_fijas(intento, codigo_ia)
             print(f"Resultado: {picas} Picas, {fijas} Fijas")
             if fijas == 4:
