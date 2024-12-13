@@ -8,7 +8,8 @@ numbers = list(range(10))
 # Generar código aleatorio
 code = random.sample(numbers, code_length)
 
-print(code)
+# Linea para test 
+# print(code)
 
 print("Bienvenido a CODE CRACKER MASTERMIND GAME")
 print("Números posibles del 0 al 9, ¡no se pueden repetir!")
@@ -50,4 +51,5 @@ while attempts < max_attempts:
         
     attempts += 1     
 
-print("Has perdido :(")
+print(f"Has perdido :( el código correcto era: {code}")
+
