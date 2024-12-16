@@ -12,6 +12,7 @@ def calcular_picas_y_fijas(intentado, secreto):
     return picas, fijas
 
 def ia_dificil(intentos_previos, respuestas_previas, nro_intento, code_length=4):
+    print("IA: Dejame pensarlo...")
     # Diccionario de datos para proximos intentos
     #Ver forma de persistir entre intentos como va quedando ese diccionario
     # numeros_posibles= list(range(10))
@@ -162,6 +163,7 @@ def jugar():
         else:  # Turno de la IA
             nro_intento += 1
             print("\nTurno de la IA:")
+            print(f"Intento nro {nro_intento} de la IA")
             print(f"Intentos previos IA: {intentos_ia}")
             print(f"Respuestas previas IA: {respuestas_ia}")
             intento = ia_dificil(intentos_ia, respuestas_ia, nro_intento)  # Cambiar a ia_medio/ia_dificil según nivel
@@ -172,10 +174,11 @@ def jugar():
             print(f"Segun tu codigo: {codigo_jugador}")
             print(f"La IA intentó: {intento} → {picas} Picas, {fijas} Fijas")
             if fijas == 4:
-                print("¡La IA adivinó tu código! Mejor suerte la próxima vez.")
+                print(f"¡La IA adivinó tu código en {nro_intento} intentos! Mejor suerte la próxima vez.")
                 break
         
         turno = 1 - turno  # Alternar turno
+        
 
 # Iniciar el juego
 if __name__ == "__main__":
